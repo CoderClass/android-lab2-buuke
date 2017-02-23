@@ -1,27 +1,58 @@
 package com.codepath.android.booksearch.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.android.booksearch.R;
+import com.codepath.android.booksearch.models.Book;
+import com.codepath.android.booksearch.models.Publisher;
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class BookDetailActivity extends AppCompatActivity {
     private ImageView ivBookCover;
     private TextView tvTitle;
     private TextView tvAuthor;
+    @BindView(R.id.action_bar)
+    Toolbar toolbar;
+    @BindView(R.id.tvPublishDate)
+    TextView tvPublishDate;
+    @BindView(R.id.tvPublisher)
+    TextView tvPublisher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         // Fetch views
         ivBookCover = (ImageView) findViewById(R.id.ivBookCover);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
+        Intent i = getIntent();
+        Book book = i.getParcelableExtra("BOOK_DETAIL");
+        getSupportActionBar().setTitle(book.getTitle());
+        tvAuthor.setText(book.getAuthor());
+        tvTitle.setText(book.getTitle());
+        tvPublishDate.setText(book.getPublish_date());
+//        String publishers = "";
+//        for (Publisher pub : book.getPublishers()) {
+//            publishers += pub + "|";
+//        }
+//        tvPublisher.setText(publishers);
+        Picasso.with(this)
+                .load(book.getCoverUrl())
+                .into(ivBookCover);
 
         // Extract book object from intent extras
 
