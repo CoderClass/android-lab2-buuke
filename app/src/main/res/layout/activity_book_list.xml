@@ -4,7 +4,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.BookListActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary" />
+
     <ListView
+        android:layout_below="@id/toolbar"
         android:id="@+id/lvBooks"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
